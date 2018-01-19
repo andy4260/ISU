@@ -12,7 +12,7 @@ abstract public class Customer {
         pay = 5;
         tip = 1;
         order = "Chocolate";
-        comment = null;
+        comment = "Thanks!";
     }
     public Customer(int p, int t, String o, String c){
         //specific customer
@@ -23,6 +23,8 @@ abstract public class Customer {
     }
     
     //GETTERS
+    //abstract public int getType(); //see if customer is a robber or not
+    
     final public ImageIcon getImage() {
         return image;
     }

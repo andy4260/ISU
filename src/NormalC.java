@@ -40,5 +40,10 @@ public class NormalC extends Customer{
             order = "Strawberry,\nChocolate,\nVanilla";
         }
     }
-    
+/*
+    @Override
+    public int getType() {
+        return 1;
+    }
+*/  
 }

@@ -36,7 +36,8 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         }
         else{
             c = new Robber();
-            
+            c.setPay();
+            line.enqueue(c); //put robber in line
         }
     }
     
@@ -49,7 +50,7 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         scoop3 = new javax.swing.JLabel();
         lblcone = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtorder = new javax.swing.JTextArea();
+        txtmsg = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         btnstr = new javax.swing.JButton();
         btncho = new javax.swing.JButton();
@@ -58,6 +59,9 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         btnnext = new javax.swing.JButton();
         lbltitle = new javax.swing.JLabel();
         lblcustomer = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mnuexit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,9 +74,9 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         scoop3.setBackground(new java.awt.Color(255, 255, 255));
         scoop3.setOpaque(true);
 
-        txtorder.setColumns(20);
-        txtorder.setRows(5);
-        jScrollPane1.setViewportView(txtorder);
+        txtmsg.setColumns(20);
+        txtmsg.setRows(5);
+        jScrollPane1.setViewportView(txtmsg);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -107,10 +111,37 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         );
 
         btnserve.setText("Serve Customer");
+        btnserve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnserveActionPerformed(evt);
+            }
+        });
 
         btnnext.setText("Next Customer");
+        btnnext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnextActionPerformed(evt);
+            }
+        });
 
-        lbltitle.setText("<INSERT TITLE>");
+        lbltitle.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbltitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbltitle.setText("Ice Cream Truck Simulator (Don't Serve Robbers!)");
+        lbltitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jMenu1.setText("File");
+
+        mnuexit.setText("Exit");
+        mnuexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuexitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuexit);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,7 +173,7 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(lbltitle, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(lbltitle, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -169,6 +200,22 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mnuexitActionPerformed
+
+    private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
+        generate();
+        txtmsg.setText(c.getOrder());
+    }//GEN-LAST:event_btnnextActionPerformed
+
+    private void btnserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnserveActionPerformed
+        c = (Customer)line.dequeue();
+        int p = c.getPay();
+        money += p;
+        txtmsg.setText(c.getComment());
+    }//GEN-LAST:event_btnserveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,14 +258,17 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
     private javax.swing.JButton btnserve;
     private javax.swing.JButton btnstr;
     private javax.swing.JButton btnvan;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblcone;
     private javax.swing.JLabel lblcustomer;
     private javax.swing.JLabel lbltitle;
+    private javax.swing.JMenuItem mnuexit;
     private javax.swing.JLabel scoop1;
     private javax.swing.JLabel scoop2;
     private javax.swing.JLabel scoop3;
-    private javax.swing.JTextArea txtorder;
+    private javax.swing.JTextArea txtmsg;
     // End of variables declaration//GEN-END:variables
 }
