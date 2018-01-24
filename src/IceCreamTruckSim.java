@@ -18,14 +18,10 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
     public IceCreamTruckSim() {
         initComponents();
         lblcone.setIcon(image); //cone image will always stay the same
-        //generate(); //make a customer
-        //c = new NormalC(); //make a customer
-        //ord = c.setOrder();
         line = new LinkedQueue(); //create the lineup
-        //line.enqueue(c); //start with one customer
         lblcustomer.setIcon(null); //set the customer's image
         money = 50; //start with $50
-        lblmoney.setText("" + money);
+        lblmoney.setText("" + money); //set label to money
         btnserve.setEnabled(false); //can't serve anyone yet
     }
 
@@ -38,12 +34,12 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
             c.setTip(); //generate a random tip amount
         } else {
             c = new Robber();
-            c.setPay();
+            c.setPay(); //sets pay to a negative value, allows robber to steal money
         }
         ord = c.setOrder(); //give the customer a random order
-        c.setComment();
+        c.setComment(); //generate the comment at the end of a successful order
         line.enqueue(c); //put customer in line
-        lblcustomer.setIcon(c.getImage());
+        lblcustomer.setIcon(c.getImage()); //generate the image of the customer
     }
 
     @SuppressWarnings("unchecked")
@@ -66,6 +62,8 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         lblcustomer = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblmoney = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblcount = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuexit = new javax.swing.JMenuItem();
@@ -157,6 +155,11 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
 
         jLabel1.setText("Money: ");
 
+        jLabel2.setText("Customers Served: ");
+
+        lblcount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblcount.setText("0");
+
         jMenu1.setText("File");
 
         mnuexit.setText("Exit");
@@ -191,9 +194,20 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(btnserve)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(110, 110, 110)
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblmoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(171, 171, 171)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblcount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(btnserve)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnnext))))
                     .addGroup(layout.createSequentialGroup()
@@ -201,12 +215,6 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
                         .addComponent(lbltitle, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblmoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,9 +241,12 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
                             .addComponent(btnserve)
                             .addComponent(btnnext))
                         .addGap(11, 11, 11)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(lblmoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                        .addComponent(lblmoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblcount, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -243,35 +254,39 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
-        System.exit(0);
+        System.exit(0); //exit
     }//GEN-LAST:event_mnuexitActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
         generate();
-        txtmsg.setText(c.getOrder());
+        txtmsg.setText(c.getOrder()); //set the text of the order
+        //reset the scoop images
         scoop1.setIcon(null);
         scoop2.setIcon(null);
         scoop3.setIcon(null);
-        btnserve.setEnabled(true);
-        c = (Customer) line.dequeue();
+        btnserve.setEnabled(true); //allow player to serve a customer now that there is one
+        c = (Customer) line.dequeue(); //get the customer
     }//GEN-LAST:event_btnnextActionPerformed
 
     private void btnserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnserveActionPerformed
         int served = scp3 + scp2*10 + scp1*100; //use this variable to see what was served
-        if(served == ord){
+        if(served == ord){ //if the order was delivered properly
+            //get the pay and tip amounts
             int p = c.getPay();
             int t = c.getTip();
-            money += p + t;
-            txtmsg.setText(c.getComment());
+            money += p + t; //add up money
+            txtmsg.setText(c.getComment()); //set text to the comment of the customer
+            lblcount.setText("" + c.count()); //update the counter
         }
         else{
-            txtmsg.setText("You messed up the order.");
+            txtmsg.setText("You messed up the order."); //order was not correct
         }
+        //set the images to nothing
         lblcustomer.setIcon(null);
         scoop1.setIcon(null);
         scoop2.setIcon(null);
         scoop3.setIcon(null);
-        lblmoney.setText("" + money);
+        lblmoney.setText("" + money); //update money
         //reset scp values for the next customer
         scp1 = 0;
         scp2 = 0;
@@ -279,14 +294,16 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
         //create a lose condition
         if(money<0){
             JOptionPane.showMessageDialog(this, "You fell into debt and was forced to declare bankruptcy");
-            System.exit(0);
+            System.exit(0); //exit the simulation
         }
+        btnserve.setEnabled(false); //disbale the serve button until another customer comes
     }//GEN-LAST:event_btnserveActionPerformed
 
     private void btnvanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvanActionPerformed
+        //put the image in the next location that does not have an image
         if (scoop1.getIcon() == null) {
-            scoop1.setIcon(van);
-            scp1 = 2;
+            scoop1.setIcon(van); //set the image to the vanilla scoop
+            scp1 = 2; //set the value of the scoop to 2
         } else if (scoop2.getIcon() == null) {
             scoop2.setIcon(van);
             scp2 = 2;
@@ -294,11 +311,12 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
             scoop3.setIcon(van);
             scp3 = 2;
         } else {
-            JOptionPane.showMessageDialog(this, "Error - no more scoops available.");
+            JOptionPane.showMessageDialog(this, "Error - no more scoops available."); //no more scoops are available
         }
     }//GEN-LAST:event_btnvanActionPerformed
 
     private void btnchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchoActionPerformed
+        //repeat of btnvan
         if (scoop1.getIcon() == null) {
             scoop1.setIcon(cho);
             scp1 = 1;
@@ -314,6 +332,7 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
     }//GEN-LAST:event_btnchoActionPerformed
 
     private void btnstrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstrActionPerformed
+        //repeat of btnvan
         if (scoop1.getIcon() == null) {
             scoop1.setIcon(str);
             scp1 = 3;
@@ -370,11 +389,13 @@ public class IceCreamTruckSim extends javax.swing.JFrame {
     private javax.swing.JButton btnstr;
     private javax.swing.JButton btnvan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblcone;
+    private javax.swing.JLabel lblcount;
     private javax.swing.JLabel lblcustomer;
     private javax.swing.JLabel lblmoney;
     private javax.swing.JLabel lbltitle;
